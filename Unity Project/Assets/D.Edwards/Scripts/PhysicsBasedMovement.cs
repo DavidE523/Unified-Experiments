@@ -1,11 +1,20 @@
-﻿using UnityEngine;
+﻿//
+//  PhysicsBasedMovement.cs
+//  Unified Experiments - Movement Physics
+//
+//  Created by David Edwards on 31/01/2015.
+//
+
+using UnityEngine;
 using System.Collections;
 
 public class PhysicsBasedMovement : MonoBehaviour {
 
-	public float movePower = 50f;
+	public float movePower;
 
-	public float jumpPower = 500f;
+	public float jumpPower;
+
+	public float currentVelocity;
 	
 	// Init.
 	void Start () {
@@ -29,6 +38,8 @@ public class PhysicsBasedMovement : MonoBehaviour {
 			this.transform.position = new Vector3(0,1,0);
 			this.rigidbody.velocity = Vector3.zero;
 		}
+
+		currentVelocity = this.rigidbody.velocity.magnitude;
 	}
 
 	// WASD-based movement controls.
@@ -36,7 +47,8 @@ public class PhysicsBasedMovement : MonoBehaviour {
 	{
 		if(Input.GetKey(KeyCode.W))
 		{
-			this.rigidbody.AddForce(new Vector3(0,0,movePower));
+			//this.rigidbody.AddForce(new Vector3(0,0,movePower));
+			this.rigidbody.AddForce(this.transform.forward * movePower);
 		}
 		if(Input.GetKey(KeyCode.S))
 		{
