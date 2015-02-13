@@ -18,13 +18,12 @@ public class FollowPlayerCamera : MonoBehaviour {
 	void Start () 
 	{
 		this.transform.position = playerObject.transform.position + positionOffset;
-
 		this.transform.forward = playerObject.transform.position - this.transform.position;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		this.transform.position = playerObject.transform.position + positionOffset;
+
 	}
 }
