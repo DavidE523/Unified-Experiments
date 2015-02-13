@@ -118,7 +118,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 316164722}
-  m_Material: {fileID: 13400000, guid: 0fbe0de0eda63e9488c73b5bb07133c8, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -204,7 +204,7 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 456920028}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 88c28e79ac3cf4a65b887d2c68518717, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -327,11 +327,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba0ff45e59e65944bb11de52b94d9778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movePower: 1000
+  fullMovePower: 1000
+  midairMovePower: 250
   rotateSpeed: 300
   jumpPower: 500
   currentVelocity: {x: 0, y: 0, z: 0}
   isOnGround: 0
+  rayOffsets:
+  - {x: 0, y: 0, z: 0}
+  - {x: -.349999994, y: 0, z: -.349999994}
+  - {x: -.349999994, y: 0, z: .349999994}
+  - {x: .349999994, y: 0, z: .349999994}
+  - {x: .349999994, y: 0, z: -.349999994}
 --- !u!1 &1408244495
 GameObject:
   m_ObjectHideFlags: 0
