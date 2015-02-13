@@ -87,7 +87,7 @@ GameObject:
   - 23: {fileID: 316164723}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: WalkableGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -158,7 +158,7 @@ GameObject:
   - 54: {fileID: 456920029}
   m_Layer: 0
   m_Name: Cube4
-  m_TagString: Untagged
+  m_TagString: WalkableGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -327,10 +327,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba0ff45e59e65944bb11de52b94d9778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movePower: 50
+  movePower: 1000
   rotateSpeed: 300
   jumpPower: 500
   currentVelocity: {x: 0, y: 0, z: 0}
+  isOnGround: 0
 --- !u!1 &1408244495
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,7 +346,7 @@ GameObject:
   - 54: {fileID: 1408244496}
   m_Layer: 0
   m_Name: Cube1
-  m_TagString: Untagged
+  m_TagString: WalkableGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -430,7 +431,7 @@ GameObject:
   - 54: {fileID: 1945661094}
   m_Layer: 0
   m_Name: Cube3
-  m_TagString: Untagged
+  m_TagString: WalkableGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -578,7 +579,7 @@ GameObject:
   - 54: {fileID: 2023501878}
   m_Layer: 0
   m_Name: Cube2
-  m_TagString: Untagged
+  m_TagString: WalkableGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

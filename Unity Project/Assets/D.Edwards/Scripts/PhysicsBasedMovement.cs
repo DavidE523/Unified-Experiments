@@ -15,6 +15,8 @@ public class PhysicsBasedMovement : MonoBehaviour {
 	public float jumpPower;
 
 	public Vector3 currentVelocity;
+
+	public bool isOnGround = false;
 	
 	// Init.
 	void Start () {
@@ -27,11 +29,15 @@ public class PhysicsBasedMovement : MonoBehaviour {
 		// Store the current velocity.
 		currentVelocity = this.rigidbody.velocity;
 
-		// To do: Cast ray down and detect ground instead of this hack.
-		// Accept movement input while on/near the ground.
-		if(currentVelocity.y > -0.1f && currentVelocity.y < 0.1f)
+		CheckGroundContact();
+
+		if(isOnGround == true)
 		{
-			MovementInput();
+			// Accept movement input while on/near the ground.
+			if(currentVelocity.y > -0.1f && currentVelocity.y < 0.1f)
+			{
+				MovementInput();
+			}
 		}
 
 		RotationInput();
@@ -47,16 +53,35 @@ public class PhysicsBasedMovement : MonoBehaviour {
 		}
 	}
 
+	void CheckGroundContact()
+	{
+		RaycastHit raycastHit = new RaycastHit();
+		Ray ray = new Ray(transform.position, Vector3.down);
+
+		if(Physics.Raycast(ray, out raycastHit))
+		{
+			Debug.DrawLine(ray.origin, raycastHit.point, Color.magenta);
+
+			if(raycastHit.collider.tag == "WalkableGround")
+			{
+				if(raycastHit.distance < 1f)
+					isOnGround = true;
+				else
+					isOnGround = false;
+			}
+		}
+	}
+
 	// WASD-based movement controls.
 	void MovementInput()
 	{
 		if(Input.GetKey(KeyCode.W))
 		{
-			this.rigidbody.AddForce(this.transform.forward * movePower);
+			this.rigidbody.AddForce(this.transform.forward * (movePower*Time.deltaTime));
 		}
 		else if(Input.GetKey(KeyCode.S))
 		{
-			this.rigidbody.AddForce(this.transform.forward * -movePower);
+			this.rigidbody.AddForce(this.transform.forward * -(movePower*Time.deltaTime));
 		}
 		
 		if(Input.GetKeyDown(KeyCode.Space))
