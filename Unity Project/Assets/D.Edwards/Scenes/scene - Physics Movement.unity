@@ -241,6 +241,8 @@ GameObject:
   - 65: {fileID: 1039066319}
   - 23: {fileID: 1039066318}
   - 54: {fileID: 1039066317}
+  - 114: {fileID: 1039066323}
+  - 114: {fileID: 1039066324}
   - 114: {fileID: 1039066322}
   m_Layer: 0
   m_Name: Player
@@ -324,14 +326,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1039066316}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba0ff45e59e65944bb11de52b94d9778, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f75fe1be5353ef4bbcfb29cbe64a14a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fullMovePower: 1000
-  midairMovePower: 250
-  rotateSpeed: 300
-  jumpPower: 500
-  currentVelocity: {x: 0, y: 0, z: 0}
   isOnGround: 0
   rayOffsets:
   - {x: 0, y: 0, z: 0}
@@ -339,6 +336,33 @@ MonoBehaviour:
   - {x: -.349999994, y: 0, z: .349999994}
   - {x: .349999994, y: 0, z: .349999994}
   - {x: .349999994, y: 0, z: -.349999994}
+--- !u!114 &1039066323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1039066316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6082eb24ead55bd4aadaad0607d628ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fullMovePower: 1000
+  midairMovePower: 250
+  rotateSpeed: 300
+  currentVelocity: {x: 0, y: 0, z: 0}
+--- !u!114 &1039066324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1039066316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b63b40b99b4e7e4d8292c20571c92ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpPower: 500
 --- !u!1 &1408244495
 GameObject:
   m_ObjectHideFlags: 0
@@ -835,7 +859,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2061868928}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4e493e1f4cca684aa7c19e9a3095078, type: 3}
+  m_Script: {fileID: 11500000, guid: 1dc59d2a45b8829448fd6bd10003f6e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 1039066316}
