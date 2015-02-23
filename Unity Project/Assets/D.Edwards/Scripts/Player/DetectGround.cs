@@ -28,6 +28,7 @@ public class DetectGround : MonoBehaviour {
 		CheckGroundContact();
 	}
 
+	// Check whether the player positioned on/near geometry marked as walkable ground.
 	void CheckGroundContact()
 	{
 		List<Ray> raylist = new List<Ray>();

@@ -9,6 +9,7 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof (DetectGround))]
 public class Movement : MonoBehaviour {
 
 	public float fullMovePower;
@@ -26,44 +27,35 @@ public class Movement : MonoBehaviour {
 		groundDetectionComponent = this.GetComponent<DetectGround>();
 	}
 	
-	// Update is called once per frame
+	// Per-frame.
 	void Update () 
 	{
 		// Store the current velocity.
 		currentVelocity = this.rigidbody.velocity;
 
-		// Accept movement based on whether player is on ground or in air.
+		// Accept movement based on whether player is on the ground or in the air.
 		if(groundDetectionComponent.isOnGround == true)
-			GroundMovementInput();
+			MovementInput(fullMovePower);
 		else
-			MidairMovementInput();
-		
+			MovementInput(midairMovePower);
+
+		// Accept turning input regardless of state.
 		RotationInput();
 	}
 
 	// WASD-based movement controls.
-	void GroundMovementInput()
+	void MovementInput(float accelerationForce)
 	{
 		if(Input.GetKey(KeyCode.W))
 		{
-			this.rigidbody.AddForce(this.transform.forward * (fullMovePower*Time.deltaTime));
+			this.rigidbody.AddForce(this.transform.forward * (accelerationForce*Time.deltaTime));
 		}
 		else if(Input.GetKey(KeyCode.S))
 		{
-			this.rigidbody.AddForce(this.transform.forward * -(fullMovePower*Time.deltaTime));
+			this.rigidbody.AddForce(this.transform.forward * -(accelerationForce*Time.deltaTime));
 		}
 	}
-	void MidairMovementInput()
-	{
-		if(Input.GetKey(KeyCode.W))
-		{
-			this.rigidbody.AddForce(this.transform.forward * (midairMovePower*Time.deltaTime));
-		}
-		else if(Input.GetKey(KeyCode.S))
-		{
-			this.rigidbody.AddForce(this.transform.forward * -(midairMovePower*Time.deltaTime));
-		}
-	}
+	// WASD-based turning controls.
 	void RotationInput()
 	{
 		if(Input.GetKey(KeyCode.A))
