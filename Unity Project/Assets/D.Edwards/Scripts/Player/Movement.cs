@@ -17,8 +17,6 @@ public class Movement : MonoBehaviour {
 
 	public float rotateSpeed;
 
-	public Vector3 currentVelocity;
-
 	DetectGround groundDetectionComponent;
 
 	// Init.
@@ -30,9 +28,6 @@ public class Movement : MonoBehaviour {
 	// Per-frame.
 	void Update () 
 	{
-		// Store the current velocity.
-		currentVelocity = this.rigidbody.velocity;
-
 		// Accept movement based on whether player is on the ground or in the air.
 		if(groundDetectionComponent.isOnGround == true)
 			MovementInput(fullMovePower);
