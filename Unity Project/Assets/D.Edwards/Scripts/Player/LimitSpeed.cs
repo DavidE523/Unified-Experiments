@@ -12,8 +12,6 @@ using System.Collections;
 public class LimitSpeed : MonoBehaviour {
 
 	public float maxSpeed;
-
-	float currentSpeed;
 	
 	// Init.
 	void Start () 
@@ -24,13 +22,16 @@ public class LimitSpeed : MonoBehaviour {
 	// Per-frame.
 	void Update () 
 	{
-		// Store the current resultant movement speed.
-		currentSpeed = this.rigidbody.velocity.sqrMagnitude;
+		// Calculate the current horizontal movement speed.
+		float currentSpeedX = Mathf.Abs(this.rigidbody.velocity.x);
+		float currentSpeedZ = Mathf.Abs(this.rigidbody.velocity.z);
+
+		float horizontalSpeed = currentSpeedX + currentSpeedZ;
 
 		// Apply a braking force in the opposite direction of the current velocity to slow the object down.
-		if(currentSpeed > maxSpeed)
+		if(horizontalSpeed > maxSpeed)
 		{
-			float brakeSpeed = currentSpeed - maxSpeed;
+			float brakeSpeed = horizontalSpeed - maxSpeed;
 			Vector3 normalisedVelocity = this.rigidbody.velocity.normalized;
 			Vector3 brakeVelocity = normalisedVelocity * brakeSpeed;
 
