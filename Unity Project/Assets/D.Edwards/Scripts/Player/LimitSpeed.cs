@@ -31,11 +31,11 @@ public class LimitSpeed : MonoBehaviour {
 		if(currentSpeed > maxSpeed)
 		{
 			float brakeSpeed = currentSpeed - maxSpeed;
-
 			Vector3 normalisedVelocity = this.rigidbody.velocity.normalized;
-
 			Vector3 brakeVelocity = normalisedVelocity * brakeSpeed;
-			
+
+			brakeVelocity.y = 0; // Only apply braking horizontally.
+
 			this.rigidbody.AddForce(-brakeVelocity);
 		}
 	}
