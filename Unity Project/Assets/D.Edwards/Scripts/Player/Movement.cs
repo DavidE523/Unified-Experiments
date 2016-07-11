@@ -17,20 +17,33 @@ public class Movement : MonoBehaviour {
 
 	public float rotateSpeed;
 
+	public bool ignoreNextMovementInput;
+
 	DetectGround groundDetectionComponent;
+
+	Rigidbody rigidBody;
 
 	// Init.
 	void Start () 
 	{
 		groundDetectionComponent = this.GetComponent<DetectGround>();
+
+		rigidBody = this.GetComponent<Rigidbody>();
 	}
 	
 	// Per-frame.
 	void Update () 
 	{
+		
 		// Accept movement based on whether player is on the ground or in the air.
 		if(groundDetectionComponent.isOnGround == true)
-			MovementInput(fullMovePower);
+		{
+			// Player input ignored to allow speed limiting.
+			if(ignoreNextMovementInput == false)
+				MovementInput(fullMovePower);
+			else
+				ignoreNextMovementInput = false;
+		}
 		else
 			MovementInput(midairMovePower);
 
@@ -43,11 +56,11 @@ public class Movement : MonoBehaviour {
 	{
 		if(Input.GetKey(KeyCode.W))
 		{
-			this.rigidbody.AddForce(this.transform.forward * (accelerationForce*Time.deltaTime));
+			rigidBody.AddForce(this.transform.forward * (accelerationForce*Time.deltaTime));
 		}
 		else if(Input.GetKey(KeyCode.S))
 		{
-			this.rigidbody.AddForce(this.transform.forward * -(accelerationForce*Time.deltaTime));
+			rigidBody.AddForce(this.transform.forward * -(accelerationForce*Time.deltaTime));
 		}
 	}
 	// WASD-based turning controls.

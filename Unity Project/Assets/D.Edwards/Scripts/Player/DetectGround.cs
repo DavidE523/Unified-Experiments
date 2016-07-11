@@ -50,7 +50,7 @@ public class DetectGround : MonoBehaviour {
 				
 				if(raycastHit.collider.tag == "WalkableGround")
 				{
-					if(raycastHit.distance < 1f)
+					if(raycastHit.distance <= 1.1f)
 						isOnGround = true;
 				}
 			}

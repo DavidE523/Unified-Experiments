@@ -35,7 +35,7 @@ public class SingleJump : MonoBehaviour {
 	{
 		if(Input.GetKeyDown(KeyCode.Space))
 		{
-			this.rigidbody.AddForce(new Vector3(0,jumpPower,0));
+			this.GetComponent<Rigidbody>().AddForce(new Vector3(0,jumpPower,0));
 		}
 	}
 }
