@@ -30,8 +30,6 @@ public class LimitSpeed : MonoBehaviour {
 
 		float horizontalSpeed = currentSpeedX + currentSpeedZ;
 
-		Debug.Log(horizontalSpeed);
-
 		// Apply a braking force in the opposite direction of the current velocity to slow the object down.
 		if(horizontalSpeed > maxSpeed)
 		{

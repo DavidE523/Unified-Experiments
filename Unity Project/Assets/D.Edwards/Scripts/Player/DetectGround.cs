@@ -14,12 +14,9 @@ public class DetectGround : MonoBehaviour {
 
 	public bool isOnGround = false;
 
-	public Vector3[] rayOffsets;
-
 	// Init.
 	void Start () 
 	{
-
 	}
 	
 	// Per-frame.
@@ -32,12 +29,13 @@ public class DetectGround : MonoBehaviour {
 	void CheckGroundContact()
 	{
 		List<Ray> raylist = new List<Ray>();
-		
-		foreach(Vector3 offset in rayOffsets)
-		{
-			raylist.Add(new Ray(transform.position + offset, Vector3.down));
-		}
-		
+
+		raylist.Add(new Ray( transform.position + (transform.right.normalized * (transform.localScale.x/2)), Vector3.down)); // Right and left of player object.
+		raylist.Add(new Ray( transform.position - (transform.right.normalized * (transform.localScale.x/2)), Vector3.down));
+
+		raylist.Add(new Ray( transform.position + (transform.forward.normalized * (transform.localScale.z/2)), Vector3.down)); // Front and back.
+		raylist.Add(new Ray( transform.position - (transform.forward.normalized * (transform.localScale.z/2)), Vector3.down));
+
 		isOnGround = false;
 		
 		foreach(Ray ray in raylist)
