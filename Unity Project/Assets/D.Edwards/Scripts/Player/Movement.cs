@@ -12,10 +12,14 @@ using System.Collections;
 [RequireComponent (typeof (DetectGround))]
 public class Movement : MonoBehaviour {
 
-	public float fullMovePower;
-	public float midairMovePower;
+	public float normalMoveForce;
+	public float sprintMoveForce;
+	public float midairMoveForce;
 
 	public float rotateSpeed;
+
+	public float normalMaxMoveSpeed;
+	public float sprintMaxMoveSpeed;
 
 	public bool ignoreNextMovementInput;
 
@@ -34,18 +38,31 @@ public class Movement : MonoBehaviour {
 	// Per-frame.
 	void Update () 
 	{
-		
-		// Accept movement based on whether player is on the ground or in the air.
+		// Accept movement based on whether player is on the ground or in the air. TODO - replace with proper movement state machine.
 		if(groundDetectionComponent.isOnGround == true)
 		{
 			// Player input ignored to allow speed limiting.
 			if(ignoreNextMovementInput == false)
-				MovementInput(fullMovePower);
+			{
+				if(Input.GetKey(KeyCode.LeftShift))
+				{
+					MovementInput(sprintMoveForce);
+					LimitHorizontalSpeed(sprintMaxMoveSpeed);
+				}
+				else
+				{
+					MovementInput(normalMoveForce);
+					LimitHorizontalSpeed(normalMaxMoveSpeed);
+				}
+			}
 			else
 				ignoreNextMovementInput = false;
 		}
 		else
-			MovementInput(midairMovePower);
+		{
+			MovementInput(midairMoveForce);
+			LimitHorizontalSpeed(sprintMaxMoveSpeed);
+		}
 
 		// Accept turning input regardless of state.
 		RotationInput();
@@ -54,15 +71,24 @@ public class Movement : MonoBehaviour {
 	// WASD-based movement controls.
 	void MovementInput(float accelerationForce)
 	{
-		if(Input.GetKey(KeyCode.W))
+		if(Input.GetKey(KeyCode.W)) // Foward.
 		{
 			rigidBody.AddForce(this.transform.forward * (accelerationForce*Time.deltaTime));
 		}
-		else if(Input.GetKey(KeyCode.S))
+		else if(Input.GetKey(KeyCode.S)) // Backward.
 		{
 			rigidBody.AddForce(this.transform.forward * -(accelerationForce*Time.deltaTime));
 		}
+		else if(Input.GetKey(KeyCode.Q)) // Strafe left.
+		{
+			rigidBody.AddForce(this.transform.right * -(accelerationForce*Time.deltaTime));
+		}
+		else if(Input.GetKey(KeyCode.E)) // Strafe right.
+		{
+			rigidBody.AddForce(this.transform.right * (accelerationForce*Time.deltaTime));
+		}
 	}
+
 	// WASD-based turning controls.
 	void RotationInput()
 	{
@@ -76,4 +102,26 @@ public class Movement : MonoBehaviour {
 		}
 	}
 
+	void LimitHorizontalSpeed(float maxSpeed)
+	{
+		// Calculate the current horizontal movement speed.
+		float currentSpeedX = Mathf.Abs(rigidBody.velocity.x);
+		float currentSpeedZ = Mathf.Abs(rigidBody.velocity.z);
+
+		float horizontalSpeed = currentSpeedX + currentSpeedZ;
+
+		// Apply a braking force in the opposite direction of the current velocity to slow the object down.
+		if(horizontalSpeed > maxSpeed)
+		{
+			float brakeSpeed = horizontalSpeed - maxSpeed;
+			Vector3 normalisedVelocity = rigidBody.velocity.normalized;
+			Vector3 brakeVelocity = normalisedVelocity * brakeSpeed;
+
+			brakeVelocity.y = 0; // Only apply braking horizontally.
+
+			rigidBody.AddForce(-brakeVelocity);
+
+			ignoreNextMovementInput = true; // Ignore next player input to allow time for braking.
+		}
+	}
 }
