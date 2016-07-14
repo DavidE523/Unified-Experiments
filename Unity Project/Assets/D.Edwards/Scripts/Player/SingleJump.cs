@@ -14,16 +14,20 @@ public class SingleJump : MonoBehaviour {
 
 	public float jumpPower;
 
-	DetectGround groundDetectionComponent;
+	protected DetectGround groundDetectionComponent;
+
+	protected Rigidbody rigidBody;
 
 	// Init.
 	void Start () 
 	{
 		groundDetectionComponent = this.GetComponent<DetectGround>();
+
+		rigidBody = this.GetComponent<Rigidbody>();
 	}
 	
 	// Per-frame.
-	void Update () 
+	protected virtual void Update () 
 	{
 		// If the player is on the ground, allow them to jump.
 		if(groundDetectionComponent.isOnGround == true)
@@ -35,7 +39,7 @@ public class SingleJump : MonoBehaviour {
 	{
 		if(Input.GetKeyDown(KeyCode.Space))
 		{
-			this.GetComponent<Rigidbody>().AddForce(new Vector3(0,jumpPower,0));
+			rigidBody.AddForce(new Vector3(0,jumpPower,0));
 		}
 	}
 }
