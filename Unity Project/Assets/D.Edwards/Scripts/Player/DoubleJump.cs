@@ -18,13 +18,13 @@ public class DoubleJump : SingleJump {
 	// Per-frame.
 	protected override void Update () 
 	{
-		base.Update();
+		base.Update(); // Use single jump logic from parent class.
 
-		// Allow double jumping when in the air.
+		// Reset double jump flag when on the ground.
 		if(groundDetectionComponent.isOnGround == true)
 			doubleJumpUsed = false;
 		else
-			DoubleJumpInput();
+			DoubleJumpInput(); // Allow double jumping when in the air.
 	}
 
 	// Double jump when space pressed if the player hasn't already since last touching the ground.

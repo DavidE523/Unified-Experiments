@@ -265,6 +265,8 @@ GameObject:
   - 54: {fileID: 1039066317}
   - 114: {fileID: 1039066323}
   - 114: {fileID: 1039066322}
+  - 114: {fileID: 1039066325}
+  - 114: {fileID: 1039066326}
   - 114: {fileID: 1039066324}
   m_Layer: 0
   m_Name: Player
@@ -358,6 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOnGround: 0
+  groundDistance: 1.1
 --- !u!114 &1039066323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,11 +387,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 1039066316}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0ff06194fcc2d74d970f121079ebcc8, type: 3}
+  m_Script: {fileID: 11500000, guid: bab8d3c39cb388f4597f535ccd4a1c25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallJumpPower: 500
+--- !u!114 &1039066325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1039066316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36e42553dfbaf77408481c93e7b15d31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOnWall: 0
+  wallDistance: 0.4
+--- !u!114 &1039066326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1039066316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b63b40b99b4e7e4d8292c20571c92ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   jumpPower: 500
-  doubleJumpPower: 400
 --- !u!1 &1408244495
 GameObject:
   m_ObjectHideFlags: 0

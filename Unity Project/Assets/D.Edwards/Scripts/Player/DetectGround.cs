@@ -14,10 +14,7 @@ public class DetectGround : MonoBehaviour {
 
 	public bool isOnGround = false;
 
-	// Init.
-	void Start () 
-	{
-	}
+	public float groundDistance;
 	
 	// Per-frame.
 	void Update () 
@@ -25,19 +22,20 @@ public class DetectGround : MonoBehaviour {
 		CheckGroundContact();
 	}
 
-	// Check whether the player positioned on/near geometry marked as walkable ground.
+	// Check whether the player is positioned on/near geometry marked as walkable ground.
 	void CheckGroundContact()
 	{
 		List<Ray> raylist = new List<Ray>();
 
-		raylist.Add(new Ray( transform.position + (transform.right.normalized * (transform.localScale.x/2)), Vector3.down)); // Right and left of player object.
+		raylist.Add(new Ray( transform.position + (transform.right.normalized * (transform.localScale.x/2)), Vector3.down)); // Set up rays on the right and left of player object, aiming down.
 		raylist.Add(new Ray( transform.position - (transform.right.normalized * (transform.localScale.x/2)), Vector3.down));
 
-		raylist.Add(new Ray( transform.position + (transform.forward.normalized * (transform.localScale.z/2)), Vector3.down)); // Front and back.
+		raylist.Add(new Ray( transform.position + (transform.forward.normalized * (transform.localScale.z/2)), Vector3.down)); // And on the front and back.
 		raylist.Add(new Ray( transform.position - (transform.forward.normalized * (transform.localScale.z/2)), Vector3.down));
 
 		isOnGround = false;
-		
+
+		// Fire each ray and see if it collides with walkable ground.
 		foreach(Ray ray in raylist)
 		{
 			RaycastHit raycastHit = new RaycastHit();
@@ -48,7 +46,7 @@ public class DetectGround : MonoBehaviour {
 				
 				if(raycastHit.collider.tag == "WalkableGround")
 				{
-					if(raycastHit.distance <= 1.1f)
+					if(raycastHit.distance <= groundDistance)
 						isOnGround = true;
 				}
 			}
