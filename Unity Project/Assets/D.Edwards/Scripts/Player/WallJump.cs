@@ -39,8 +39,13 @@ public class WallJump : MonoBehaviour {
 			wallJumpUsed = false;
 		else
 		{
-			if(wallDetection.isOnWall == true && wallJumpUsed == false) // Allow wall jumping when in the air and close to a wall.
-				WallJumpInput(); 
+			if(wallDetection.isOnWall == true) // Allow wall jumping when in the air and close to a wall.
+			{
+				if(wallJumpUsed == false) 
+					WallJumpInput();
+
+				rigidBody.AddForce(-(Physics.gravity/2), ForceMode.Acceleration); // Half gravity, simulating sliding down wall.
+			}
 		}
 	}
 
