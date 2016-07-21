@@ -9,7 +9,6 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof (DetectGround))]
 public class Movement : MonoBehaviour {
 
 	public float normalMoveForce;
@@ -23,26 +22,25 @@ public class Movement : MonoBehaviour {
 
 	public bool ignoreNextMovementInput;
 
-	DetectGround groundDetectionComponent;
-
 	Rigidbody rigidBody;
+
+	public enum MovementState {OnGround, InAir};
+	public static MovementState movementState;
 
 	// Init.
 	void Start () 
 	{
-		groundDetectionComponent = this.GetComponent<DetectGround>();
-
 		rigidBody = this.GetComponent<Rigidbody>();
 	}
 	
 	// Per-frame.
 	void Update () 
 	{
-		// Accept movement based on whether player is on the ground or in the air. TODO - replace with proper movement state machine.
-		if(groundDetectionComponent.isOnGround == true)
+		switch(movementState)
 		{
-			// Player input ignored to allow speed limiting.
-			if(ignoreNextMovementInput == false)
+		case MovementState.OnGround:
+			
+			if(ignoreNextMovementInput == false) // Player input ignored to allow speed limiting.
 			{
 				if(Input.GetKey(KeyCode.LeftShift))
 				{
@@ -57,11 +55,15 @@ public class Movement : MonoBehaviour {
 			}
 			else
 				ignoreNextMovementInput = false;
-		}
-		else
-		{
+			
+			break;
+		
+		case MovementState.InAir:
+
 			MovementInput(midairMoveForce);
 			LimitHorizontalSpeed(sprintMaxMoveSpeed);
+
+			break;
 		}
 
 		// Accept turning input regardless of state.

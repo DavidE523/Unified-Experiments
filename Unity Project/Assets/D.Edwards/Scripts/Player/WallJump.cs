@@ -15,8 +15,6 @@ public class WallJump : MonoBehaviour {
 
 	bool wallJumpUsed = false;
 
-	DetectGround groundDetection;
-
 	DetectWall wallDetection;
 
 	Rigidbody rigidBody;
@@ -24,8 +22,6 @@ public class WallJump : MonoBehaviour {
 	// Init.
 	void Start () 
 	{
-		groundDetection = this.GetComponent<DetectGround>();
-
 		wallDetection = this.GetComponent<DetectWall>();
 
 		rigidBody = this.GetComponent<Rigidbody>();
@@ -35,7 +31,7 @@ public class WallJump : MonoBehaviour {
 	void Update () 
 	{
 		// Reset wall jump flag when on the ground.
-		if(groundDetection.isOnGround == true)
+		if(Movement.movementState == Movement.MovementState.OnGround)
 			wallJumpUsed = false;
 		else
 		{

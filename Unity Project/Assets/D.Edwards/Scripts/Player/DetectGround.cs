@@ -12,8 +12,6 @@ using System.Collections.Generic;
 
 public class DetectGround : MonoBehaviour {
 
-	public bool isOnGround = false;
-
 	public float groundDistance;
 	
 	// Per-frame.
@@ -33,7 +31,7 @@ public class DetectGround : MonoBehaviour {
 		raylist.Add(new Ray( transform.position + (transform.forward.normalized * (transform.localScale.z/2)), Vector3.down)); // And on the front and back.
 		raylist.Add(new Ray( transform.position - (transform.forward.normalized * (transform.localScale.z/2)), Vector3.down));
 
-		isOnGround = false;
+		Movement.movementState = Movement.MovementState.InAir;
 
 		// Fire each ray and see if it collides with walkable ground.
 		foreach(Ray ray in raylist)
@@ -47,7 +45,7 @@ public class DetectGround : MonoBehaviour {
 				if(raycastHit.collider.tag == "WalkableGround")
 				{
 					if(raycastHit.distance <= groundDistance)
-						isOnGround = true;
+						Movement.movementState = Movement.MovementState.OnGround;
 				}
 			}
 		}

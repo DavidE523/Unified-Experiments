@@ -21,7 +21,7 @@ public class DoubleJump : SingleJump {
 		base.Update(); // Use single jump logic from parent class.
 
 		// Reset double jump flag when on the ground.
-		if(groundDetectionComponent.isOnGround == true)
+		if(Movement.movementState == Movement.MovementState.OnGround)
 			doubleJumpUsed = false;
 		else
 			DoubleJumpInput(); // Allow double jumping when in the air.
